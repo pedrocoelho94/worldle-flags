@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="text-white">
+      <main className="flex flex-col text-white">
         <Game />
       </main>
     </div>

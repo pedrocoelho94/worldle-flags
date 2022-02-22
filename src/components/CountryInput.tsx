@@ -6,9 +6,13 @@ import {
   sanitizeCountryName,
 } from '../lib/countries'
 
-const CountryInput = ({}) => {
+type CountryInputProps = {
+  currentGuess: string
+  setCurrentGuess: (guess: string) => void
+}
+
+const CountryInput = ({ currentGuess, setCurrentGuess }: CountryInputProps) => {
   const [suggestions, setSuggestions] = useState<string[]>([])
-  const [currentGuess, setCurrentGuess] = useState('')
 
   return (
     <>
@@ -39,7 +43,6 @@ const CountryInput = ({}) => {
           onChange: (_e, { newValue }) => setCurrentGuess(newValue),
         }}
       />
-      {currentGuess}
     </>
   )
 }

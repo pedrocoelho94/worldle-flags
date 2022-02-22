@@ -1,8 +1,20 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { ToastContainer, Flip } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <ToastContainer
+        position="top-center"
+        transition={Flip}
+        autoClose={2000}
+        bodyClassName="font-bold text-center"
+      />
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 export default MyApp
