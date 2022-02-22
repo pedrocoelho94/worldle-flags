@@ -8,6 +8,7 @@ import { GuessProps, saveGuesses } from '../lib/guessStorage'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
 import calcDistance from '../lib/calcDistance'
+import { loadAllStats, saveStats } from '../lib/statsStorage'
 
 function getDayString() {
   return DateTime.now().toFormat('yyyy-MM-dd')
@@ -17,12 +18,14 @@ const MAX_TRY = 6
 
 const Game = () => {
   const dayString = useMemo(getDayString, [])
+  //const dayString = '2022-02-03'
 
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
 
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
+  const [gameEnded, setGameEnded] = useState(false)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -55,17 +58,27 @@ const Game = () => {
 
     if (guessedCountry.name.toLowerCase() == country.name.toLowerCase()) {
       toast.success('You Got it')
+      setGameEnded(true)
+      saveStats(dayString, true)
       return
     }
   }
 
-  // useEffect(() => {
-  //   if (guesses?.length === MAX_TRY) {
-  //     toast.info(
-  //       `You have used all your chances, try next day. The answer was: ${country.name}`
-  //     )
-  //   }
-  // }, [guesses])
+  useEffect(() => {
+    const stats = loadAllStats()[dayString]
+    setGameEnded(stats?.gameEnded)
+  }, [])
+
+  useEffect(() => {
+    if (guesses?.length >= MAX_TRY) {
+      toast.info(`You failed. The answer was: ${country.name}`, {
+        autoClose: 10000,
+      })
+
+      setGameEnded(true)
+      saveStats(dayString, true)
+    }
+  }, [guesses])
 
   return (
     <>
@@ -73,10 +86,11 @@ const Game = () => {
         WOR<span className="text-green-600">L</span>DLE FLAGS
       </h1>
 
-      <div className="mb-4 text-center">{country.name}</div>
-      <div className="mb-12 w-full max-w-md">
+      <div className="mb-4 w-full max-w-md">
         <img src={country.flag} alt="" />
       </div>
+
+      <div className="mb-12 text-center">{country.name}</div>
 
       <Guesses rows={MAX_TRY} guesses={guesses} />
 
@@ -84,9 +98,10 @@ const Game = () => {
         <CountryInput
           currentGuess={currentGuess}
           setCurrentGuess={setCurrentGuess}
+          isDisabled={gameEnded}
         />
 
-        <button type="submit">Guess</button>
+        {!gameEnded && <button type="submit">Guess</button>}
       </form>
     </>
   )
