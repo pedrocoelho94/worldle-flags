@@ -1,19 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
-import { GuessProps, loadAllGuesses, saveGuesses } from '../lib/guessStorage'
+import { useEffect, useState } from 'react'
+import { GuessProps, loadAllGuesses, saveGuesses } from '../utils/guessStorage'
 
 const useGuesses = (
   dayString: string
 ): [GuessProps[], (newGuess: GuessProps) => void] => {
   const [guesses, setGuesses] = useState<GuessProps[]>([])
-
-  //() => initial()
-  // function initial() {
-  //   if (typeof window !== 'undefined') {
-  //     return loadAllGuesses()[dayString] ?? []
-  //   }
-
-  //   return []
-  // }
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

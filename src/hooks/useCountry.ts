@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import seedrandom from 'seedrandom'
-import { countries, CountryProps } from '../lib/countries'
+import { countries, CountryProps } from '../utils/countries'
 
 const useCountry = (dayString: string): [CountryProps] => {
   const country = useMemo(() => {

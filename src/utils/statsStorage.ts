@@ -9,7 +9,11 @@ export const loadAllStats = () => {
   return storedStats === null ? {} : JSON.parse(storedStats)
 }
 
-export const saveStats = (dayString: string, gameEnded: boolean) => {
+export const saveStats = (
+  dayString: string,
+  gameEnded: boolean,
+  status: 'success' | 'failed'
+) => {
   const allStats = loadAllStats()
 
   localStorage.setItem(
@@ -17,7 +21,8 @@ export const saveStats = (dayString: string, gameEnded: boolean) => {
     JSON.stringify({
       ...allStats,
       [dayString]: {
-        gameEnded: gameEnded,
+        gameEnded,
+        status,
       },
     })
   )

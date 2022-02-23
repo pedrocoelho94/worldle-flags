@@ -2,13 +2,12 @@ import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import useCountry from '../hooks/useCountry'
-import { countries, sanitizeCountryName } from '../lib/countries'
+import { countries, sanitizeCountryName } from '../utils/countries'
 import { toast } from 'react-toastify'
-import { GuessProps, saveGuesses } from '../lib/guessStorage'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
-import calcDistance from '../lib/calcDistance'
-import { loadAllStats, saveStats } from '../lib/statsStorage'
+import calcDistance from '../utils/calcDistance'
+import { loadAllStats, saveStats } from '../utils/statsStorage'
 
 function getDayString() {
   return DateTime.now().toFormat('yyyy-MM-dd')
@@ -20,12 +19,15 @@ const Game = () => {
   const dayString = useMemo(getDayString, [])
   //const dayString = '2022-02-03'
 
+  const countryInputRef = useRef<HTMLInputElement>(null)
+
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
 
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
+  const [gameStatus, setGameStatus] = useState('')
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -59,7 +61,7 @@ const Game = () => {
     if (guessedCountry.name.toLowerCase() == country.name.toLowerCase()) {
       toast.success('You Got it')
       setGameEnded(true)
-      saveStats(dayString, true)
+      saveStats(dayString, true, 'success')
       return
     }
   }
@@ -67,6 +69,7 @@ const Game = () => {
   useEffect(() => {
     const stats = loadAllStats()[dayString]
     setGameEnded(stats?.gameEnded)
+    setGameStatus(stats?.status)
   }, [])
 
   useEffect(() => {
@@ -76,21 +79,27 @@ const Game = () => {
       })
 
       setGameEnded(true)
-      saveStats(dayString, true)
+      saveStats(dayString, true, 'failed')
     }
   }, [guesses])
 
   return (
     <>
-      <h1 className="mb-4 text-center text-[2.5rem] font-bold">
+      <h1 className="mb-4 text-center text-[1.5rem] font-bold">
         WOR<span className="text-green-600">L</span>DLE FLAGS
       </h1>
 
-      <div className="mb-4 w-full max-w-md">
+      <div className="mx-auto mb-4 flex w-full max-w-sm">
         <img src={country.flag} alt="" />
       </div>
 
-      <div className="mb-12 text-center">{country.name}</div>
+      {gameStatus !== 'success' && (
+        <p className="mb-4 text-center">{country.name}</p>
+      )}
+
+      {gameStatus === 'success' && (
+        <p className="mb-4 text-center">{`You got it. The answer was ${country.name}.`}</p>
+      )}
 
       <Guesses rows={MAX_TRY} guesses={guesses} />
 

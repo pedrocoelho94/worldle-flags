@@ -1,9 +1,10 @@
-import { GuessProps } from '../lib/guessStorage'
+import { GuessProps } from '../utils/guessStorage'
 import GuessRow from './GuessRow'
 
 type GuessesProps = {
   rows: number
   guesses: GuessProps[]
+  countryInputRef?: React.RefObject<HTMLInputElement>
 }
 
 const Guesses = ({ rows, guesses }: GuessesProps) => {
@@ -11,9 +12,7 @@ const Guesses = ({ rows, guesses }: GuessesProps) => {
     <div>
       <div className="grid grid-cols-1 gap-1 text-center">
         {Array.from(Array(rows).keys()).map((index) => (
-          <>
-            <GuessRow key={index} guess={guesses[index]} />
-          </>
+          <GuessRow key={index} guess={guesses[index]} />
         ))}
       </div>
     </div>

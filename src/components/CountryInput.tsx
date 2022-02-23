@@ -4,7 +4,7 @@ import {
   countries,
   getCountryName,
   sanitizeCountryName,
-} from '../lib/countries'
+} from '../utils/countries'
 
 type CountryInputProps = {
   currentGuess: string
@@ -42,7 +42,7 @@ const CountryInput = ({
       )}
       inputProps={{
         disabled: isDisabled,
-        className: 'w-full text-gray-900 h-10 mt-5 text-xl p-2',
+        className: 'w-full text-gray-900 h-10 mt-4 text-xs 2xs:text-base p-2',
         placeholder: isDisabled
           ? 'Come back tomorrow for more guesses'
           : 'Type a country',
