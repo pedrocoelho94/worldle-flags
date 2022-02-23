@@ -1,25 +1,25 @@
 import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
-import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
 import { countries, sanitizeCountryName } from '../utils/countries'
 import { toast } from 'react-toastify'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
 import calcDistance from '../utils/calcDistance'
-import { loadAllStats, saveStats } from '../utils/statsStorage'
+import { getStats, loadAllStats, saveStats } from '../utils/statsStorage'
+import { loadAllGuesses } from '../utils/guessStorage'
 
 function getDayString() {
   return DateTime.now().toFormat('yyyy-MM-dd')
 }
 
-const MAX_TRY = 6
+const MAX_TRY = 1
 
 const Game = () => {
-  const dayString = useMemo(getDayString, [])
-  //const dayString = '2022-02-03'
-
-  const countryInputRef = useRef<HTMLInputElement>(null)
+  //const dayString = useMemo(getDayString, [])
+  const dayString = '2022-10-24'
+  //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
@@ -27,7 +27,7 @@ const Game = () => {
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
-  const [gameStatus, setGameStatus] = useState('')
+  const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -38,7 +38,7 @@ const Game = () => {
     )
 
     if (guessedCountry == null) {
-      toast.error('Unknown Country')
+      toast.warning('Unknown Country', { toastId: 'warningToast' })
       return
     }
 
@@ -58,28 +58,31 @@ const Game = () => {
     addGuess(newGuess)
     setCurrentGuess('')
 
-    if (guessedCountry.name.toLowerCase() == country.name.toLowerCase()) {
-      toast.success('You Got it')
+    if (guessedCountry.name.toLowerCase() === country.name.toLowerCase()) {
+      toast.success('You Got it', { toastId: 'successToast' })
       setGameEnded(true)
       saveStats(dayString, true, 'success')
+      setGameStatus('success')
       return
     }
   }
 
   useEffect(() => {
+    const guessOf = loadAllGuesses()[dayString]
     const stats = loadAllStats()[dayString]
-    setGameEnded(stats?.gameEnded)
+    setGameEnded(stats?.gameEnded || false)
     setGameStatus(stats?.status)
-  }, [])
 
-  useEffect(() => {
-    if (guesses?.length >= MAX_TRY) {
-      toast.info(`You failed. The answer was: ${country.name}`, {
-        autoClose: 10000,
-      })
-
+    if (
+      guessOf?.length >= MAX_TRY &&
+      guessOf[guessOf.length - 1].distance > 0
+    ) {
       setGameEnded(true)
       saveStats(dayString, true, 'failed')
+
+      toast.error(`You failed. The answer was: ${country.name}`, {
+        toastId: 'infoToast',
+      })
     }
   }, [guesses])
 

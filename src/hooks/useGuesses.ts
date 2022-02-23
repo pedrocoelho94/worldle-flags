@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { GuessProps, loadAllGuesses, saveGuesses } from '../utils/guessStorage'
 
 const useGuesses = (
@@ -11,7 +11,7 @@ const useGuesses = (
       const guessOfTheDay = loadAllGuesses()[dayString] ?? []
       setGuesses(guessOfTheDay)
     }
-  }, [dayString])
+  }, [])
 
   const addGuess = (newGuess: GuessProps): void => {
     const newGuesses = [...guesses, newGuess]

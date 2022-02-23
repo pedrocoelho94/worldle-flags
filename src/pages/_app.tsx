@@ -9,8 +9,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ToastContainer
         position="top-center"
         transition={Flip}
-        autoClose={2000}
+        autoClose={3000}
+        pauseOnHover={false}
         bodyClassName="font-bold text-center"
+        pauseOnFocusLoss={false}
       />
       <Component {...pageProps} />
     </>
