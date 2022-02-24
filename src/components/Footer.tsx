@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="my-8 flex h-12 flex-col items-center  justify-center px-2 text-white sm:px-10">
+    <footer className="mt-8 mb-4 flex h-12 flex-col items-center  justify-center px-2 text-white sm:px-10">
       <span className="text-center">
         If you find any bug, please let me know.
       </span>

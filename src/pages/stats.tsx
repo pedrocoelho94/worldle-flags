@@ -28,7 +28,7 @@ export default function Stats() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mx-auto flex max-w-xl flex-col px-2 text-white mt-4">
+      <main className="mx-auto flex max-w-xl flex-col px-5 text-white mt-4">
         <h2 className="mb-4 text-center text-[1.25rem] font-bold 2xs:text-[1.5rem]">
           Stats
         </h2>
