@@ -20,8 +20,8 @@ function getDayString() {
 const MAX_TRY = 6
 
 const Game = () => {
-  //const dayString = useMemo(getDayString, [])
-  const dayString = '2022-02-26'
+  const dayString = useMemo(getDayString, [])
+  //const dayString = '2022-02-26'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
