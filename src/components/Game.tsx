@@ -1,24 +1,27 @@
 import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
-import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
 import { countries, sanitizeCountryName } from '../utils/countries'
 import { toast } from 'react-toastify'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
 import calcDistance from '../utils/calcDistance'
-import { getStats, loadAllStats, saveStats } from '../utils/statsStorage'
+import { loadAllStats, saveStats } from '../utils/statsStorage'
 import { loadAllGuesses } from '../utils/guessStorage'
+
+import { BsFlagFill } from 'react-icons/bs'
+import Share from './Share'
 
 function getDayString() {
   return DateTime.now().toFormat('yyyy-MM-dd')
 }
 
-const MAX_TRY = 1
+const MAX_TRY = 6
 
 const Game = () => {
   //const dayString = useMemo(getDayString, [])
-  const dayString = '2022-10-24'
+  const dayString = '2022-02-06'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
@@ -27,7 +30,7 @@ const Game = () => {
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
-  const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
+  //const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -62,8 +65,17 @@ const Game = () => {
       toast.success('You Got it', { toastId: 'successToast' })
       setGameEnded(true)
       saveStats(dayString, true, 'success')
-      setGameStatus('success')
+      //setGameStatus('success')
       return
+    }
+
+    if (
+      guesses.length === MAX_TRY - 1 &&
+      guesses[guesses.length - 1].distance > 0
+    ) {
+      toast.error(`You failed. The answer was: ${country.name}`, {
+        toastId: 'infoToast',
+      })
     }
   }
 
@@ -71,7 +83,7 @@ const Game = () => {
     const guessOf = loadAllGuesses()[dayString]
     const stats = loadAllStats()[dayString]
     setGameEnded(stats?.gameEnded || false)
-    setGameStatus(stats?.status)
+    //setGameStatus(stats?.status)
 
     if (
       guessOf?.length >= MAX_TRY &&
@@ -79,43 +91,45 @@ const Game = () => {
     ) {
       setGameEnded(true)
       saveStats(dayString, true, 'failed')
-
-      toast.error(`You failed. The answer was: ${country.name}`, {
-        toastId: 'infoToast',
-      })
     }
   }, [guesses])
 
   return (
-    <>
-      <h1 className="mb-4 text-center text-[1.5rem] font-bold">
-        WOR<span className="text-green-600">L</span>DLE FLAGS
-      </h1>
-
-      <div className="mx-auto mb-4 flex w-full max-w-sm">
-        <img src={country.flag} alt="" />
-      </div>
-
+    <main className="flex flex-col items-center p-2 text-white sm:justify-center mt-4">
+      <img
+        src={country.flag}
+        className={`mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72`}
+        alt=""
+      />
+      {/* 
       {gameStatus !== 'success' && (
         <p className="mb-4 text-center">{country.name}</p>
       )}
 
       {gameStatus === 'success' && (
         <p className="mb-4 text-center">{`You got it. The answer was ${country.name}.`}</p>
-      )}
+      )} */}
 
       <Guesses rows={MAX_TRY} guesses={guesses} />
 
-      <form onSubmit={handleSubmit}>
-        <CountryInput
-          currentGuess={currentGuess}
-          setCurrentGuess={setCurrentGuess}
-          isDisabled={gameEnded}
-        />
-
-        {!gameEnded && <button type="submit">Guess</button>}
-      </form>
-    </>
+      {!gameEnded ? (
+        <form className="w-[20rem] max-w-full" onSubmit={handleSubmit}>
+          <CountryInput
+            currentGuess={currentGuess}
+            setCurrentGuess={setCurrentGuess}
+            isDisabled={gameEnded}
+          />
+          <button
+            className="mt-2 flex w-full items-center justify-center  border-2 p-2 font-bold transition-all hover:border-cyan-600 hover:text-cyan-600"
+            type="submit"
+          >
+            Guess <BsFlagFill className="ml-2" />
+          </button>
+        </form>
+      ) : (
+        <Share guesses={guesses} dayString={dayString} />
+      )}
+    </main>
   )
 }
 

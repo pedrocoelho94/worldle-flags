@@ -218,13 +218,6 @@ export const countries: CountryProps[] = [
     flag: 'https://countryflagsapi.com/svg/064',
   },
   {
-    code: 'BV',
-    latitude: -54.423199,
-    longitude: 3.413194,
-    name: 'Bouvet Island',
-    flag: 'https://countryflagsapi.com/svg/074',
-  },
-  {
     code: 'BW',
     latitude: -22.328474,
     longitude: 24.684866,

@@ -36,7 +36,7 @@ const CountryInput = ({
       onSuggestionsClearRequested={() => setSuggestions([])}
       getSuggestionValue={(suggestion) => suggestion}
       renderSuggestion={(suggestion) => (
-        <div className="flex h-8 cursor-pointer items-center border-2  transition-all hover:bg-slate-300 hover:text-gray-800">
+        <div className="er-1 flex h-full cursor-pointer items-center overflow-hidden text-ellipsis border-x-2 border-y-[1px] p-2 transition-all hover:bg-slate-300 hover:text-gray-800">
           {suggestion}
         </div>
       )}

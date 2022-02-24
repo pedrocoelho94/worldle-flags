@@ -10,6 +10,9 @@ module.exports = {
       '2xs': '280px',
       ...defaultTheme.screens,
     },
+    fontFamily: {
+      sans: ['Source Sans Pro', 'sans-serif'],
+    },
   },
   plugins: [],
 }
