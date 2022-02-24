@@ -20,8 +20,8 @@ function getDayString() {
 const MAX_TRY = 6
 
 const Game = () => {
-  const dayString = useMemo(getDayString, [])
-  //const dayString = '2022-02-06'
+  //const dayString = useMemo(getDayString, [])
+  const dayString = '2022-02-26'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
@@ -30,7 +30,7 @@ const Game = () => {
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
-  //const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
+  const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -65,7 +65,7 @@ const Game = () => {
       toast.success('You Got it', { toastId: 'successToast' })
       setGameEnded(true)
       saveStats(dayString, true, 'success')
-      //setGameStatus('success')
+      setGameStatus('success')
       return
     }
 
@@ -83,7 +83,7 @@ const Game = () => {
     const guessOf = loadAllGuesses()[dayString]
     const stats = loadAllStats()[dayString]
     setGameEnded(stats?.gameEnded || false)
-    //setGameStatus(stats?.status)
+    setGameStatus(stats?.status)
 
     if (
       guessOf?.length >= MAX_TRY &&
@@ -98,17 +98,13 @@ const Game = () => {
     <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">
       <img
         src={country.flag}
-        className={`mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72`}
+        className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
         alt=""
       />
-      {/* 
-      {gameStatus !== 'success' && (
+
+      {gameStatus === 'failed' && (
         <p className="mb-4 text-center">{country.name}</p>
       )}
-
-      {gameStatus === 'success' && (
-        <p className="mb-4 text-center">{`You got it. The answer was ${country.name}.`}</p>
-      )} */}
 
       <Guesses rows={MAX_TRY} guesses={guesses} />
 

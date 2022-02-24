@@ -35,7 +35,7 @@ const Share = ({ guesses, dayString }: ShareProps) => {
 
     const title = `#WorldleFlags #${dayCount} ${guessCount}/6`
 
-    return [title, guessesShare, 'https://worldleflags.vercel.app/'].join('\n')
+    return [title, guessesShare, 'worldleflags.vercel.app'].join('\n')
   }
 
   console.log(textToShare())
@@ -48,7 +48,7 @@ const Share = ({ guesses, dayString }: ShareProps) => {
         format: 'text/plain',
       }}
     >
-      <button className="mt-2 flex w-[20rem] max-w-full items-center justify-center  border-2 border-green-700 bg-green-700 p-2  font-bold transition-all hover:border-green-600 hover:bg-green-600">
+      <button className="mt-8 flex w-[20rem] max-w-full items-center justify-center  border-2 border-green-700 bg-green-700 p-2  font-bold transition-all hover:border-green-600 hover:bg-green-600">
         SHARE YOUR GAME
       </button>
     </CopyToClipboard>
