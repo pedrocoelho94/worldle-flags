@@ -8,7 +8,7 @@ type ShareProps = {
   dayString: string
 }
 
-const DAY_ONE = DateTime.fromISO('2022-02-01')
+const DAY_ONE = DateTime.fromISO('2022-02-23')
 
 const Share = ({ guesses, dayString }: ShareProps) => {
   const textToShare = () => {
@@ -35,7 +35,7 @@ const Share = ({ guesses, dayString }: ShareProps) => {
 
     const title = `#WorldleFlags #${dayCount} ${guessCount}/6`
 
-    return [title, guessesShare, 'https://pedrocoelho.netlify.app/'].join('\n')
+    return [title, guessesShare, 'https://worldleflags.vercel.app/'].join('\n')
   }
 
   console.log(textToShare())

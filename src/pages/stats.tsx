@@ -10,13 +10,6 @@ export default function Stats() {
   useEffect(() => {
     const myStats = getStats()
     setStats(myStats)
-
-    // if (stats.guessDistribution) {
-    //   const maxDistribution = Math.max(
-    //     ...Object.values(stats.guessDistribution)
-    //   )
-    //   setMax(maxDistribution)
-    // }
   }, [])
 
   useEffect(() => {

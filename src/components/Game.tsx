@@ -20,8 +20,8 @@ function getDayString() {
 const MAX_TRY = 6
 
 const Game = () => {
-  //const dayString = useMemo(getDayString, [])
-  const dayString = '2022-02-06'
+  const dayString = useMemo(getDayString, [])
+  //const dayString = '2022-02-06'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
@@ -95,7 +95,7 @@ const Game = () => {
   }, [guesses])
 
   return (
-    <main className="flex flex-col items-center p-2 text-white sm:justify-center mt-4">
+    <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">
       <img
         src={country.flag}
         className={`mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72`}
