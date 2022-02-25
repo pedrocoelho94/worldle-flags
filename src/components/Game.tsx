@@ -2,7 +2,11 @@ import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
 import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
-import { countries, sanitizeCountryName } from '../utils/countries'
+import {
+  countries,
+  CountryProps,
+  sanitizeCountryName,
+} from '../utils/countries'
 import { toast } from 'react-toastify'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
@@ -19,19 +23,18 @@ function getDayString() {
 
 const MAX_TRY = 6
 
-const Game = () => {
-  const dayString = useMemo(getDayString, [])
+type GameProps = {
+  dayString: string
+  country: CountryProps
+}
+
+const Game = ({ country, dayString }: GameProps) => {
+  //const dayString = useMemo(getDayString, [])
   //const dayString = '2022-02-26'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
-  console.log('DAYSTRING', dayString)
-  console.log(DateTime.now())
-
   //hook para selecionar o país de acordo com o dia
-  const [country] = useCountry(dayString)
-
-  console.log(country)
-
+  //const [country] = useCountry(dayString)
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
@@ -106,7 +109,7 @@ const Game = () => {
         className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
         alt=""
       />
-      {console.log('FLAG', country.flag)}
+
       {gameStatus === 'failed' && (
         <p className="mb-4 text-center">{country.name}</p>
       )}
