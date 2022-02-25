@@ -1,27 +1,43 @@
-# Next.js + Tailwind CSS Example
+<h1 align="center">
+  My Trips
+</h1>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-executar">Como executar</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
 
-## Preview
+<br>
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+<p align="center">
+  <img alt="Em breve uma screenshot" src="/public/img/preview.JPG" width="100%">
+</p>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## ✨ Tecnologias
 
-## Deploy your own
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+- [React](https://reactjs.org)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
 
-## How to use
+<br>
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## 💻 Projeto
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+Worldle Flags é um jogo fortemente inspirado no sucesso mundial Wordle, um jogo no qual você precisa acertar a palavra do dia em até 6 tentativas. Aqui o princípio é o mesmo, porém ao invés de palavras temos bandeiras.
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Para mais informações acesse o post do meu portfólio, clicando [Aqui](https://pedrocoelho.netlify.app/portfolio/worldle-flags).
+
+<br>
+
+## 🚀 Como executar
+
+
+- Clone o repositório
+- Instale as dependências com `yarn`
+- Inicie o servidor com `yarn dev`
+
+Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.

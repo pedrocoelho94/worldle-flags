@@ -132,7 +132,7 @@ const Game = () => {
             isDisabled={gameEnded}
           />
           <button
-            className="mt-2 flex w-full items-center justify-center  border-2 p-2 font-bold transition-all hover:border-cyan-600 hover:text-cyan-600"
+            className="mt-2 flex w-full items-center justify-center border-2 p-2 font-bold transition-all hover:border-cyan-600 hover:text-cyan-600"
             type="submit"
           >
             Guess <BsFlagFill className="ml-2" />
