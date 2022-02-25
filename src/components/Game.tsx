@@ -29,7 +29,7 @@ type GameProps = {
 }
 
 const Game = () => {
-  const [dayString, setDay] = useState('')
+  const [dayString, setDayString] = useState('')
 
   // useEffect(() => {
   //   const dayString = getDayString()
@@ -39,9 +39,13 @@ const Game = () => {
 
   const day = useMemo(getDayString, [])
 
-  useMemo(() => {
-    setDay(day)
-  }, [])
+  // useMemo(() => {
+  //   setDay(day)
+  // }, [])
+
+  useEffect(() => {
+    setDayString(day)
+  }, [dayString])
 
   //const dayString = '2022-02-26'
 
@@ -49,9 +53,12 @@ const Game = () => {
   const [country] = useCountry(dayString)
 
   const [currentGuess, setCurrentGuess] = useState('')
-  const [guesses, addGuess] = useGuesses(dayString)
+  const [guesses, addGuess] = useGuesses(day)
   const [gameEnded, setGameEnded] = useState(false)
   const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
+
+  console.log('DAY', dayString)
+  console.log('COUNTRY', country)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
