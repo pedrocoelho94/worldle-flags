@@ -1,6 +1,6 @@
 import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
-import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
 import {
   countries,
@@ -23,11 +23,6 @@ function getDayString() {
 
 const MAX_TRY = 6
 
-type GameProps = {
-  dayString: string
-  country: CountryProps
-}
-
 const Game = () => {
   const [dayString, setDayString] = useState('')
 
@@ -38,6 +33,7 @@ const Game = () => {
   // }, [])
 
   const day = useMemo(getDayString, [])
+  //const dayString = '2022-02-26'
 
   // useMemo(() => {
   //   setDay(day)
@@ -47,8 +43,6 @@ const Game = () => {
     setDayString(day)
   }, [dayString])
 
-  //const dayString = '2022-02-26'
-
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
 
@@ -56,9 +50,6 @@ const Game = () => {
   const [guesses, addGuess] = useGuesses(day)
   const [gameEnded, setGameEnded] = useState(false)
   const [gameStatus, setGameStatus] = useState('' as 'success' | 'failed')
-
-  console.log('DAY', dayString)
-  console.log('COUNTRY', country)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -124,17 +115,18 @@ const Game = () => {
 
   return (
     <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">
-      <img
-        src={country.flag}
-        className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
-        alt=""
-      />
+      <div className="sm:mb-4 sm:h-48">
+        <img
+          src={country.flag}
+          className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
+          alt=""
+        />
+      </div>
 
       {gameStatus === 'failed' && (
         <p className="mb-4 text-center">{country.name}</p>
       )}
 
-      {console.log(guesses)}
       {guesses && <Guesses rows={MAX_TRY} guesses={guesses} />}
 
       {!gameEnded ? (
