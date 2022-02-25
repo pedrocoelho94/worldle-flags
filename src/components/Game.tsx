@@ -2,11 +2,7 @@ import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
 import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
-import {
-  countries,
-  CountryProps,
-  sanitizeCountryName,
-} from '../utils/countries'
+import { countries, sanitizeCountryName } from '../utils/countries'
 import { toast } from 'react-toastify'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
@@ -45,7 +41,6 @@ const Game = () => {
 
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
-
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(day)
   const [gameEnded, setGameEnded] = useState(false)
@@ -81,7 +76,7 @@ const Game = () => {
     setCurrentGuess('')
 
     if (guessedCountry.name.toLowerCase() === country.name.toLowerCase()) {
-      toast.success('You Got it', { toastId: 'successToast' })
+      toast.success('Correct', { toastId: 'successToast' })
       setGameEnded(true)
       saveStats(dayString, true, 'success')
       setGameStatus('success')
@@ -92,7 +87,7 @@ const Game = () => {
       guesses.length === MAX_TRY - 1 &&
       guesses[guesses.length - 1].distance > 0
     ) {
-      toast.error(`You failed. The answer was: ${country.name}`, {
+      toast.error(`${country.name}`, {
         toastId: 'infoToast',
       })
     }

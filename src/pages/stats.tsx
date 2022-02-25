@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import { off } from 'process'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getStats, StatsProps } from '../utils/statsStorage'
 
 export default function Stats() {
@@ -28,7 +27,7 @@ export default function Stats() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mx-auto flex max-w-xl flex-col px-5 text-white mt-4">
+      <main className="mx-auto mt-4 flex max-w-xl flex-col px-5 text-white">
         <h2 className="mb-4 text-center text-[1.25rem] font-bold 2xs:text-[1.5rem]">
           Stats
         </h2>
@@ -36,28 +35,28 @@ export default function Stats() {
         <div className="mb-8 flex flex-col justify-around 2xs:flex-row">
           <div className="mb-4 flex flex-col items-center">
             <span className="text-[1rem] font-bold 2xs:text-[2rem] sm:text-[3rem]">
-              {stats.played}
+              {stats.played || '0'}
             </span>
             <h3 className="text-center">Played</h3>
           </div>
 
           <div className="mb-4 flex flex-col items-center">
             <span className="text-[1rem] font-bold 2xs:text-[2rem] sm:text-[3rem]">
-              {stats.winRate}%
+              {stats.winRate || '00'}%
             </span>
             <h3 className="text-center">Win Rate</h3>
           </div>
 
           <div className="mb-4 flex flex-col items-center">
             <span className="text-[1rem] font-bold 2xs:text-[2rem] sm:text-[3rem]">
-              {stats.currentStreak}
+              {stats.currentStreak || '0'}
             </span>
             <h3 className="text-center">Current Streak</h3>
           </div>
 
           <div className="mb-4 flex flex-col items-center">
             <span className="text-[1rem] font-bold 2xs:text-[2rem] sm:text-[3rem]">
-              {stats.maxStreak}
+              {stats.maxStreak || '0'}
             </span>
             <h3 className="text-center">Max Streak</h3>
           </div>
@@ -67,7 +66,7 @@ export default function Stats() {
           Guess Distribuition
         </h2>
 
-        <div>
+        <div className="h-[18rem] py-1">
           {stats.guessDistribution && (
             <ul>
               {Object.entries(stats.guessDistribution).map(([index, count]) => (
