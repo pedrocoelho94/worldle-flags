@@ -24,6 +24,9 @@ const Game = () => {
   //const dayString = '2022-02-26'
   //const countryInputRef = useRef<HTMLInputElement>(null)
 
+  console.log('DAYSTRING', dayString)
+  console.log(DateTime.now())
+
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
 
