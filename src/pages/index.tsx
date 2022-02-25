@@ -10,7 +10,7 @@ function getDayString() {
 }
 
 export default function Home() {
-  const dayString = useMemo(getDayString, [])
+  const dayString = getDayString()
   //const dayString = '2022-02-26'
 
   const [country] = useCountry(dayString)
