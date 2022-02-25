@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Game from '../components/Game'
 
 import { DateTime } from 'luxon'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import useCountry from '../hooks/useCountry'
 
 function getDayString() {
@@ -10,18 +10,24 @@ function getDayString() {
 }
 
 export default function Home() {
-  const dayString = getDayString()
-  //const dayString = '2022-02-26'
+  const [day, setDay] = useState('')
 
-  const [country] = useCountry(dayString)
+  useEffect(() => {
+    const dayString = getDayString()
+    //const dayString = '2022-02-26'
+    setDay(dayString)
+  }, [])
+
+  const [country] = useCountry(day)
 
   return (
     <>
       <Head>
         <title>Worldle Flags</title>
       </Head>
-
-      <Game country={country} dayString={dayString} />
+      {console.log('DAY', day)}
+      {console.log('COUNTRY', country)}
+      <Game country={country} dayString={day} />
     </>
   )
 }
