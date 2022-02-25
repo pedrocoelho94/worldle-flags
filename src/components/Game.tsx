@@ -28,7 +28,18 @@ type GameProps = {
   country: CountryProps
 }
 
-const Game = ({ country, dayString }: GameProps) => {
+const Game = () => {
+  //const dayString = useMemo(getDayString, [])
+  const [dayString, setDay] = useState('')
+
+  useEffect(() => {
+    const dayString = getDayString()
+    //const dayString = '2022-02-26'
+    setDay(dayString)
+  }, [])
+
+  const [country] = useCountry(dayString)
+
   //const dayString = useMemo(getDayString, [])
   //const dayString = '2022-02-26'
   //const countryInputRef = useRef<HTMLInputElement>(null)
@@ -100,7 +111,7 @@ const Game = ({ country, dayString }: GameProps) => {
       setGameEnded(true)
       saveStats(dayString, true, 'failed')
     }
-  }, [guesses])
+  }, [guesses, dayString])
 
   return (
     <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">

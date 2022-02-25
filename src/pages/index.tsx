@@ -10,24 +10,23 @@ function getDayString() {
 }
 
 export default function Home() {
-  const [day, setDay] = useState('')
+  // const [day, setDay] = useState('')
 
-  useEffect(() => {
-    const dayString = getDayString()
-    //const dayString = '2022-02-26'
-    setDay(dayString)
-  }, [])
+  // useEffect(() => {
+  //   const dayString = getDayString()
+  //   //const dayString = '2022-02-26'
+  //   setDay(dayString)
+  // }, [])
 
-  const [country] = useCountry(day)
+  // const [country] = useCountry(day)
 
   return (
     <>
       <Head>
         <title>Worldle Flags</title>
       </Head>
-      {console.log('DAY', day)}
-      {console.log('COUNTRY', country)}
-      <Game country={country} dayString={day} />
+
+      <Game />
     </>
   )
 }
