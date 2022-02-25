@@ -11,7 +11,7 @@ import { loadAllStats, saveStats } from '../utils/statsStorage'
 import { loadAllGuesses } from '../utils/guessStorage'
 
 import { BsFlagFill } from 'react-icons/bs'
-import Share from './Share'
+import ShareButton from './Share'
 
 function getDayString() {
   return DateTime.now().toFormat('yyyy-MM-dd')
@@ -123,7 +123,7 @@ const Game = () => {
           </button>
         </form>
       ) : (
-        <Share guesses={guesses} dayString={dayString} />
+        <ShareButton guesses={guesses} dayString={dayString} />
       )}
     </main>
   )
