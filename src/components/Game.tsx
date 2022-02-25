@@ -1,6 +1,6 @@
 import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
 import {
   countries,
@@ -29,23 +29,25 @@ type GameProps = {
 }
 
 const Game = () => {
-  //const dayString = useMemo(getDayString, [])
   const [dayString, setDay] = useState('')
 
-  useEffect(() => {
-    const dayString = getDayString()
-    //const dayString = '2022-02-26'
-    setDay(dayString)
+  // useEffect(() => {
+  //   const dayString = getDayString()
+  //   //const dayString = '2022-02-26'
+  //   setDay(dayString)
+  // }, [])
+
+  const day = useMemo(getDayString, [])
+
+  useMemo(() => {
+    setDay(day)
   }, [])
 
-  const [country] = useCountry(dayString)
-
-  //const dayString = useMemo(getDayString, [])
   //const dayString = '2022-02-26'
-  //const countryInputRef = useRef<HTMLInputElement>(null)
 
   //hook para selecionar o país de acordo com o dia
-  //const [country] = useCountry(dayString)
+  const [country] = useCountry(dayString)
+
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
@@ -111,7 +113,7 @@ const Game = () => {
       setGameEnded(true)
       saveStats(dayString, true, 'failed')
     }
-  }, [guesses, dayString])
+  }, [guesses])
 
   return (
     <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">
@@ -125,7 +127,8 @@ const Game = () => {
         <p className="mb-4 text-center">{country.name}</p>
       )}
 
-      <Guesses rows={MAX_TRY} guesses={guesses} />
+      {console.log(guesses)}
+      {guesses && <Guesses rows={MAX_TRY} guesses={guesses} />}
 
       {!gameEnded ? (
         <form className="w-[20rem] max-w-full" onSubmit={handleSubmit}>

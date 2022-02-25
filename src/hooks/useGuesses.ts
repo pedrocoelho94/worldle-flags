@@ -13,12 +13,15 @@ const useGuesses = (
     }
   }, [])
 
-  const addGuess = (newGuess: GuessProps): void => {
-    const newGuesses = [...guesses, newGuess]
+  const addGuess = useCallback(
+    (newGuess: GuessProps) => {
+      const newGuesses = [...guesses, newGuess]
 
-    setGuesses(newGuesses)
-    saveGuesses(dayString, newGuesses)
-  }
+      setGuesses(newGuesses)
+      saveGuesses(dayString, newGuesses)
+    },
+    [dayString, guesses]
+  )
 
   return [guesses, addGuess]
 }
