@@ -30,6 +30,8 @@ const Game = () => {
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
 
+  console.log(country)
+
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(dayString)
   const [gameEnded, setGameEnded] = useState(false)
@@ -104,7 +106,7 @@ const Game = () => {
         className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
         alt=""
       />
-
+      {console.log('FLAG', country.flag)}
       {gameStatus === 'failed' && (
         <p className="mb-4 text-center">{country.name}</p>
       )}
