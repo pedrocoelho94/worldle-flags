@@ -110,7 +110,7 @@ const Game = () => {
 
   return (
     <main className="mt-4 flex flex-col items-center p-2 text-white sm:justify-center">
-      <div className="sm:mb-4 sm:h-48">
+      <div className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72">
         <img
           src={country.flag}
           className="mb-4 max-h-48 w-[20rem] max-w-full 2xl:max-h-72"
