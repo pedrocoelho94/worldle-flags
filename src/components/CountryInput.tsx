@@ -45,7 +45,7 @@ const CountryInput = ({
         className: 'w-full text-gray-900 h-10 mt-4 text-xs 2xs:text-base p-2',
         placeholder: isDisabled
           ? 'Come back tomorrow for more guesses'
-          : 'Type a country',
+          : 'Country',
         value: currentGuess,
         onChange: (_e, { newValue }) => setCurrentGuess(newValue),
       }}

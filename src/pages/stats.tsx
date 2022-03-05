@@ -63,7 +63,7 @@ export default function Stats() {
         </div>
 
         <h2 className="mb-4 text-center text-[1.25rem] font-bold 2xs:text-[1.5rem]">
-          Guess Distribuition
+          Guesses
         </h2>
 
         <div className="h-[18rem] py-1">
