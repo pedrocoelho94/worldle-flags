@@ -5,11 +5,27 @@ import 'react-toastify/dist/ReactToastify.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Head from 'next/head'
+import * as ga from '../lib/google-analytics'
 
 import Script from 'next/script'
-
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      ga.pageView(url)
+    }
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
+
   return (
     <>
       <Head>
@@ -18,10 +34,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <Script
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
       />
-      <Script strategy="lazyOnload">
+      <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
