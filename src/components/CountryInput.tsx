@@ -1,10 +1,6 @@
 import Autosuggest from 'react-autosuggest'
 import { useState } from 'react'
-import {
-  countries,
-  getCountryName,
-  sanitizeCountryName,
-} from '../utils/countries'
+import { countries, getCountryName, sanitize } from '../utils/countries'
 
 type CountryInputProps = {
   currentGuess: string
@@ -27,9 +23,7 @@ const CountryInput = ({
           countries
             .map((c) => getCountryName(c).toUpperCase())
             .filter((countryName) =>
-              sanitizeCountryName(countryName).includes(
-                sanitizeCountryName(value)
-              )
+              sanitize(countryName).includes(sanitize(value))
             )
         )
       }

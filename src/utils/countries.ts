@@ -1694,14 +1694,22 @@ export const countries: CountryProps[] = [
     name: 'Zimbabwe',
     flag: 'https://countryflagsapi.com/svg/716',
   },
-]
+].map(({ code, ...rest }) => {
+  return {
+    code,
+    ...rest,
+    flag: `https://flagcdn.com/256x192/${code.toLowerCase()}.png`,
+  }
+})
 
-export function sanitizeCountryName(countryName: string): string {
-  return countryName
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[- '()]/g, '')
-    .toLowerCase()
+export function sanitize(countryName: string): string {
+  return (
+    countryName
+      // .normalize('NFD')
+      // .replace(/[\u0300-\u036f]/g, '')
+      // .replace(/[- '()]/g, '')
+      .toLowerCase()
+  )
 }
 
 export function getCountryName(country: CountryProps) {

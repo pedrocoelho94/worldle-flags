@@ -2,7 +2,7 @@ import CountryInput from './CountryInput'
 import { DateTime } from 'luxon'
 import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useCountry from '../hooks/useCountry'
-import { countries, sanitizeCountryName } from '../utils/countries'
+import { countries, sanitize } from '../utils/countries'
 import { toast } from 'react-toastify'
 import useGuesses from '../hooks/useGuesses'
 import Guesses from './Guesses'
@@ -30,6 +30,7 @@ const Game = () => {
 
   const day = useMemo(getDayString, [])
   //const dayString = '2022-02-26'
+  //const day = '2022-05-17'
 
   // useMemo(() => {
   //   setDay(day)
@@ -41,6 +42,7 @@ const Game = () => {
 
   //hook para selecionar o país de acordo com o dia
   const [country] = useCountry(dayString)
+
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, addGuess] = useGuesses(day)
   const [gameEnded, setGameEnded] = useState(false)
@@ -50,8 +52,7 @@ const Game = () => {
     e.preventDefault()
 
     const guessedCountry = countries.find(
-      (country) =>
-        sanitizeCountryName(country.name) === sanitizeCountryName(currentGuess)
+      (country) => sanitize(country.name) === sanitize(currentGuess)
     )
 
     if (guessedCountry == null) {
@@ -75,7 +76,7 @@ const Game = () => {
     addGuess(newGuess)
     setCurrentGuess('')
 
-    if (guessedCountry.name.toLowerCase() === country.name.toLowerCase()) {
+    if (sanitize(guessedCountry.name) === sanitize(country.name)) {
       toast.success('Correct', { toastId: 'successToast' })
       setGameEnded(true)
       saveStats(dayString, true, 'success')
