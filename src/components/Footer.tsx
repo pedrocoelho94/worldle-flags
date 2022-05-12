@@ -22,6 +22,17 @@ const Footer = () => {
           @skytterZ
         </a>
       </span>
+
+      <span className="text-center">
+        Flags by{' '}
+        <a
+          className="text-cyan-500 underline transition-all hover:text-cyan-600"
+          href="https://flagpedia.net"
+          target="_blank"
+        >
+          flagpedia.net
+        </a>
+      </span>
     </footer>
   )
 }
