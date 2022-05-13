@@ -17,7 +17,7 @@ const useCountry = (dayString: string): [CountryProps] => {
   //   seedrandom.alea(dayString)() * countries.length
   // )
 
-  const arng = seedrandom.xor128('2022-05-12')
+  const arng = seedrandom.xor128(dayString)
   const myNumber = Math.floor(arng() * countries.length)
 
   const country = countries[myNumber]
