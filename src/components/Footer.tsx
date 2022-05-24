@@ -12,14 +12,6 @@ const Footer = () => {
           target="_blank"
         >
           Pedro Coelho
-        </a>{' '}
-        |{' '}
-        <a
-          className="text-cyan-500 underline transition-all hover:text-cyan-600"
-          href="https://twitter.com/skytterZ"
-          target="_blank"
-        >
-          @skytterZ
         </a>
       </span>
 
